@@ -27,12 +27,6 @@ export const VideoJS = ({options, onReady}) => {
                 player.on('pause', () => {
                     dispatch(pause())
                 })
-
-                player.on('loadedmetadata', function () {
-                    let time = PlaybackTimeHelper.get(currentVideo.id)
-                    if (player.duration() - time > PlaybackTimeHelper.SAVE_INTERVAL)
-                        player.currentTime(time)
-                })
             })
         } else {
             const player = playerRef.current
@@ -40,6 +34,12 @@ export const VideoJS = ({options, onReady}) => {
             player.src(options.sources)
 
         }
+
+        playerRef.current.on('loadedmetadata', function () {
+            let time = PlaybackTimeHelper.get(currentVideo.id)
+            if (playerRef.current.duration() - time > PlaybackTimeHelper.SAVE_INTERVAL)
+                playerRef.current.currentTime(time)
+        })
     }, [options])
 
     // listen to external play / pause commands
