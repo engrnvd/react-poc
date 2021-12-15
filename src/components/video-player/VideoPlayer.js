@@ -13,26 +13,15 @@ export default function VideoPlayer({children, ...props}) {
     const video = useSelector(selectedVideoSelector)
 
     const videoJsOptions = {
-        autoplay: true,
         controls: true,
         responsive: true,
         fluid: true,
         sources: video.sources
     }
 
-    const handlePlayerReady = (player) => {
-        player.on('waiting', () => {
-            console.log('player is waiting');
-        });
-
-        player.on('dispose', () => {
-            console.log('player will dispose');
-        });
-    };
-
     return (
         <StyledVideoPlayer>
-            <VideoJS options={videoJsOptions} onReady={handlePlayerReady}/>
+            <VideoJS options={videoJsOptions}/>
             <VideoThumbnailInfo video={video} size='1.5rem'/>
         </StyledVideoPlayer>
     );

@@ -3,7 +3,8 @@ import styled from "styled-components";
 import VideoThumbnail from "./VideoThumbnail";
 import VideoThumbnailInfo from "./VideoThumbnailInfo";
 import {useDispatch, useSelector} from "react-redux";
-import {selectedVideoSelector, setSelectedVideo} from "../../redux/modules/videosSlice";
+import {selectedVideoSelector} from "../../redux/modules/videosSlice";
+import {play} from "../../redux/modules/playerSlice";
 
 const StyledVideoListItem = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ export default function VideoListItem({children, video, ...props}) {
     const dispatch = useDispatch()
 
     return (
-        <StyledVideoListItem selected={video === selected} onClick={e => dispatch(setSelectedVideo(video))}>
+        <StyledVideoListItem selected={video === selected} onClick={e => dispatch(play(video))}>
             <VideoThumbnail video={video}/>
             <VideoThumbnailInfo video={video}/>
         </StyledVideoListItem>

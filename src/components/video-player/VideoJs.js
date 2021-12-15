@@ -1,36 +1,52 @@
-import React from "react";
+import React, {useRef, useEffect} from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
+import {useDispatch, useSelector} from "react-redux";
+import {pause, play, playingSelector} from "../../redux/modules/playerSlice";
 
 export const VideoJS = ({options, onReady}) => {
-    const videoRef = React.useRef(null);
-    const playerRef = React.useRef(null);
+    const videoRef = useRef(null);
+    const playerRef = useRef(null)
+    const dispatch = useDispatch()
+    const playing = useSelector(playingSelector)
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!playerRef.current) {
-            if (!videoRef.current) return;
+            if (!videoRef.current) return
 
             const player = playerRef.current = videojs(videoRef.current, options, () => {
-                onReady && onReady(player);
-            });
+                onReady && onReady(player)
+                player.on('play', () => {
+                    !playing && dispatch(play())
+                })
+                player.on('pause', () => {
+                    playing && dispatch(pause())
+                })
+            })
         } else {
-            const player = playerRef.current;
-            player.autoplay(options.autoplay);
-            player.src(options.sources);
+            const player = playerRef.current
+            player.autoplay(options.autoplay || playing)
+            player.src(options.sources)
         }
-    }, [options, videoRef]);
+    }, [dispatch, onReady, options, videoRef])
+
+    // listen to external play / pause commands
+    useEffect(() => {
+        const player = playerRef.current
+        playing ? player.play() : player.pause()
+    }, [playing])
 
     // Dispose the Video.js player when the functional component unmounts
-    React.useEffect(() => {
-        const player = playerRef.current;
+    useEffect(() => {
+        const player = playerRef.current
 
         return () => {
             if (player) {
-                player.dispose();
-                playerRef.current = null;
+                player.dispose()
+                playerRef.current = null
             }
         };
-    }, [playerRef]);
+    }, [playerRef])
 
     return (
         <div data-vjs-player>
@@ -39,4 +55,4 @@ export const VideoJS = ({options, onReady}) => {
     );
 }
 
-export default VideoJS;
+export default VideoJS
