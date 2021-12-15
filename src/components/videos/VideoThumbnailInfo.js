@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
+import TogglePlayBtn from "./TogglePlayBtn";
+import {useSelector} from "react-redux";
+import {selectedVideoSelector} from "../../redux/modules/videosSlice";
 
 const StyledVideoThumbInfo = styled.div`
   padding: 1em;
@@ -11,9 +14,13 @@ const StyledVideoThumbInfo = styled.div`
   }
 `
 export default function VideoThumbnailInfo({children, video, size, ...props}) {
+    const selected = useSelector(selectedVideoSelector)
     return (
         <StyledVideoThumbInfo size={size}>
-            <div><a href='#'>{video.title}</a></div>
+            <div>
+                {video === selected && <><TogglePlayBtn/> &nbsp;</>}
+                <a href='#'>{video.title}</a>
+            </div>
             <div><a className='sub-title' href='#'>{video.subtitle}</a></div>
         </StyledVideoThumbInfo>
     );
