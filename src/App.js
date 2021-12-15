@@ -1,6 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {videosSelector} from "./redux/modules/videos/videos.selectors";
-import {selectVideo} from "./redux/modules/videos/videos.actions";
+import {setSelectedVideo, videosSelector} from "./redux/modules/videosSlice";
 
 function App() {
     const videos = useSelector(videosSelector)
@@ -13,7 +12,7 @@ function App() {
                         <img
                             alt={video.title}
                             src={`http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/${video.thumb}`}
-                            onClick={e => dispatch(selectVideo(video))}
+                            onClick={e => dispatch(setSelectedVideo(video))}
                         />
                     </div>
                 ))
