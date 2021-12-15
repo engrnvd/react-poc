@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {videosList} from "../../data/videos-list";
+import {PlaybackTimeHelper} from "../../helpers/PlaybackTimeHelper";
 
 // state
 const initialState = {
@@ -15,11 +16,16 @@ export const videosSlice = createSlice({
         setSelectedVideo: (state, {payload}) => {
             state.selectedVideo = payload;
         },
+        savePlaybackTime: (state, {payload}) => {
+            if (state.selectedVideo) {
+                PlaybackTimeHelper.save(state.selectedVideo.id, payload)
+            }
+        },
     },
 });
 
 // actions
-export const {setSelectedVideo} = videosSlice.actions;
+export const {setSelectedVideo, savePlaybackTime} = videosSlice.actions;
 
 // selectors
 export const videosSelector = state => state.videos.videos

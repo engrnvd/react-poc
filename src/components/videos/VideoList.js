@@ -12,8 +12,8 @@ export default function VideoList({children, ...props}) {
     return (
         <StyledVideoList>
             {
-                videos.map((video, i) => (
-                    <VideoListItem key={i} video={video}/>
+                videos.map((video) => (
+                    <VideoListItem key={video.id} video={video}/>
                 ))
             }
         </StyledVideoList>
