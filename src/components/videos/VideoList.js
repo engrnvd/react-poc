@@ -5,6 +5,7 @@ import {videosSelector} from "../../redux/modules/videosSlice";
 import VideoListItem from "./VideoListItem";
 
 const StyledVideoList = styled.div`
+    max-width: 350px;
 `
 export default function VideoList({children, ...props}) {
     const videos = useSelector(videosSelector)

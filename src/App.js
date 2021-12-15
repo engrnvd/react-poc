@@ -4,7 +4,7 @@ import {ThemeProvider} from "styled-components";
 import {theme} from "./styles/theme";
 import GlobalStyles from "./styles/global-styles";
 import VideoList from "./components/videos/VideoList";
-import VideoPlayer from "./components/videos/VideoPlayer";
+import VideoPlayer from "./components/video-player/VideoPlayer";
 
 function App() {
     return (
