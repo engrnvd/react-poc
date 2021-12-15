@@ -11,7 +11,6 @@ const StyledVideoPlayer = styled.div`
 `
 export default function VideoPlayer({children, ...props}) {
     const video = useSelector(selectedVideoSelector)
-    const playerRef = React.useRef(null);
 
     const videoJsOptions = {
         autoplay: true,
@@ -22,9 +21,6 @@ export default function VideoPlayer({children, ...props}) {
     }
 
     const handlePlayerReady = (player) => {
-        playerRef.current = player;
-
-        // you can handle player events here
         player.on('waiting', () => {
             console.log('player is waiting');
         });
