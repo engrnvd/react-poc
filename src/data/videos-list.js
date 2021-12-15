@@ -104,3 +104,9 @@ export const videosList = [
         "title": "What care can you get for a grand?"
     }
 ]
+
+export function mockLoadVideos(amount = 1) {
+    return new Promise((resolve) =>
+        setTimeout(() => resolve({data: videosList}), 1000)
+    );
+}
