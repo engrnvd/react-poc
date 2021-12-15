@@ -23,6 +23,7 @@ export const {setSelectedVideo} = videosSlice.actions;
 
 // selectors
 export const videosSelector = state => state.videos.videos
+export const selectedVideoSelector = state => state.videos.selectedVideo
 
 // export slice reducer
 export default videosSlice.reducer;
