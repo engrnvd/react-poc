@@ -17,10 +17,10 @@ export const VideoJS = ({options, onReady}) => {
             const player = playerRef.current = videojs(videoRef.current, options, () => {
                 onReady && onReady(player)
                 player.on('play', () => {
-                    !playing && dispatch(play())
+                    dispatch(play())
                 })
                 player.on('pause', () => {
-                    playing && dispatch(pause())
+                    dispatch(pause())
                 })
             })
         } else {
