@@ -13,7 +13,7 @@ function getData() {
 }
 
 export const PlaybackTimeHelper = {
-    SAVE_INTERVAL: 3,
+    SAVE_INTERVAL: 2,
     save(id, time) {
         let data = getData()
         data[id] = time
