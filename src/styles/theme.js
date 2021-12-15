@@ -1,6 +1,7 @@
 export const theme = {
     colors: {
-        bg: '#212121',
-        textColor: '#fff'
+        headerBg: '#212121',
+        textColor: '#fff',
+        bg: '#181818'
     }
 }

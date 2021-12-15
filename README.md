@@ -1,3 +1,10 @@
+# Notes
+
+ - I only used redux without `redux-toolkit` for demonstration purposes and later switched to `redux-toolkit`. Commit id:
+   `5b077551f2e65ee8291b99818bbf456f8e7ec8da`
+   
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
