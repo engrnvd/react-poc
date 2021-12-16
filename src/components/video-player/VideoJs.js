@@ -5,11 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {pause, play, playingSelector} from "../../redux/modules/playerSlice";
 import {savePlaybackTime, selectedVideoSelector} from "../../redux/modules/videosSlice";
 import {PlaybackTimeHelper} from "../../helpers/PlaybackTimeHelper";
+import useInterval from "../../hooks/useInterval";
 
 export const VideoJS = ({options, onReady}) => {
     const videoRef = useRef(null)
     const playerRef = useRef(null)
-    const playbackIntervalRef = useRef(null)
     const dispatch = useDispatch()
     const playing = useSelector(playingSelector)
     const currentVideo = useSelector(selectedVideoSelector)
@@ -57,20 +57,13 @@ export const VideoJS = ({options, onReady}) => {
                 player.dispose()
                 playerRef.current = null
             }
-            if (playbackIntervalRef.current) {
-                clearInterval(playbackIntervalRef.current)
-                playbackIntervalRef.current = null
-            }
         };
     }, [playerRef])
 
-    useEffect(() => {
-        if (!playbackIntervalRef.current)
-            playbackIntervalRef.current = setInterval(() => {
-                let time = playerRef.current.currentTime()
-                if (time > 0) dispatch(savePlaybackTime(time))
-            }, PlaybackTimeHelper.SAVE_INTERVAL * 1000)
-    }, [])
+    useInterval(() => {
+        let time = playerRef.current.currentTime()
+        if (time > 0 && playing) dispatch(savePlaybackTime(time))
+    }, PlaybackTimeHelper.SAVE_INTERVAL * 1000)
 
     return (
         <div data-vjs-player>
